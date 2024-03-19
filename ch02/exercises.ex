@@ -13,4 +13,6 @@ defmodule Exercises do
     |> Enum.map(&(&1 * &1))
     |> Enum.sort(:desc)
   end
+
+  def translate(), do: :crypto.hash(:md5, "Tales from the Crypt")
 end
