@@ -2,7 +2,7 @@ defmodule MetexTest do
   use ExUnit.Case
   doctest Metex
 
-  test "greets the world" do
-    assert Metex.hello() == :world
+  test "the truth" do
+    assert 1 + 1 == 2
   end
 end

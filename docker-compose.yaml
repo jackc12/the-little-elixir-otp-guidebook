@@ -1,0 +1,8 @@
+version: "0.0"
+
+services:
+  alpine-elixir:
+    image: bitwalker/alpine-elixir:1.3.4
+    volumes:
+      - ./:/Elixir_&_OTP_Guidebook
+    working_dir: /Elixir_&_OTP_Guidebook

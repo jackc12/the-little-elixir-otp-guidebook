@@ -4,18 +4,21 @@
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `metex` to your list of dependencies in `mix.exs`:
+If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
 
-```elixir
-def deps do
-  [
-    {:metex, "~> 0.1.0"}
-  ]
-end
-```
+  1. Add `metex` to your list of dependencies in `mix.exs`:
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/metex>.
+    ```elixir
+    def deps do
+      [{:metex, "~> 0.1.0"}]
+    end
+    ```
+
+  2. Ensure `metex` is started before your application:
+
+    ```elixir
+    def application do
+      [applications: [:metex]]
+    end
+    ```
 
