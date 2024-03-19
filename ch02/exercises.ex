@@ -6,4 +6,11 @@ defmodule Exercises do
   end
 
   def sum(item), do: item
+
+  def transform(list) do
+    list
+    |> List.flatten()
+    |> Enum.map(&(&1 * &1))
+    |> Enum.sort(:desc)
+  end
 end
