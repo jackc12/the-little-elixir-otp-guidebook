@@ -6,3 +6,5 @@ services:
     volumes:
       - ./:/Elixir_&_OTP_Guidebook
     working_dir: /Elixir_&_OTP_Guidebook
+
+# docker compose run -it alpine-elixir
