@@ -43,6 +43,10 @@ defmodule Metex.Worker do
     {:noreply, %{}}
   end
 
+  def handle_cast(:stop, stats) do
+    {:stop, :normal, stats}
+  end
+
   ## Server Callbacks
 
   def init(:ok) do
