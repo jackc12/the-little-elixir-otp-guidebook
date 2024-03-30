@@ -54,6 +54,11 @@ defmodule Metex.Worker do
     :ok
   end
 
+  def handle_info(msf, stats) do
+    IO.puts "received #{inspect msg}"
+    {:noreply, stats}
+  end
+
   ## Server Callbacks
 
   def init(:ok) do
