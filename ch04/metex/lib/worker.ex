@@ -27,6 +27,10 @@ defmodule Metex.Worker do
     end
   end
 
+  def handle_call(:get_stats, _from, stats) do
+    {:reply, stats, stats}
+  end
+
   ## Server Callbacks
 
   def init(:ok) do
