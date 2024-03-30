@@ -19,6 +19,10 @@ defmodule Metex.Worker do
     GenServer.cast(pid, :reset_stats)
   end
 
+  def stop(pid) do
+    GenServer.cast(pid, :stop)
+  end
+
   ## Server API
 
   def handle_call({:location, location}, _from, stats) do
