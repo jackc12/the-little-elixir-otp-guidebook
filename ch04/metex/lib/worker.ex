@@ -27,6 +27,12 @@ defmodule Metex.Worker do
 
   ## Server API
 
+  ## Server Callbacks
+
+  def init(:ok) do
+    {:ok, %{}}
+  end
+
   def handle_call({:location, location}, _from, stats) do
     case temperature_of(location) do
       {:ok, temp} ->
@@ -59,12 +65,6 @@ defmodule Metex.Worker do
   def handle_info(msg, stats) do
     IO.puts "received #{inspect msg}"
     {:noreply, stats}
-  end
-
-  ## Server Callbacks
-
-  def init(:ok) do
-    {:ok, %{}}
   end
 
   ## Helper Functions
