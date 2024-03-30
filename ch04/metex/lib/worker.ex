@@ -47,6 +47,13 @@ defmodule Metex.Worker do
     {:stop, :normal, stats}
   end
 
+  def terminate(reason, stats) do
+    # We could write to a file, database, etc
+    IO.puts "server terminated because of #{inspect reason}"
+    inspect stats
+    :ok
+  end
+
   ## Server Callbacks
 
   def init(:ok) do
