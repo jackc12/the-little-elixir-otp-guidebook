@@ -44,7 +44,7 @@ defmodule ThySupervisor do
   def handle_call({:start_child, child_spec}, _from, state) do
     case start_child(child_spec) do
       {:ok, pid} ->
-        new_state = state |> HashDict.put(put, child_spec)
+        new_state = state |> HashDict.put(child_spec)
         {:reply, {:ok, pid}, new_state}
       :error ->
         {:reply, {:error, "error starting child"}, state}
@@ -68,7 +68,7 @@ defmodule ThySupervisor do
           {:ok, {pid, child_spec}} ->
             new_state = state
               |> HashDict.delete(old_pid)
-              |> HashDict.put(pid)
+              |> HashDict.put(pid, child_spec)
             {:reply, {:ok, pid}, new_state}
           :error ->
             {:reply, {:error, "error restarting child"}, state}
@@ -168,10 +168,5 @@ defmodule ThySupervisor do
 
   defp terminate_children(child_specs) do
     child_specs |> Enum.each(fn {pid, _} -> terminate_child(pid) end)
-  end
-
-  defp terminate_child(pid) do
-    Process.exit(pid, :kill)
-    :ok
   end
 end
