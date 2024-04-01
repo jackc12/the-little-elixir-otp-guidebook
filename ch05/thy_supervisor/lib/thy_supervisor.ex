@@ -91,6 +91,11 @@ defmodule ThySupervisor do
     {:noreply, new_state}
   end
 
+  def handle_info({:EXIT, from, :normal}, state) do
+    new_state = state |> HashDict.delete(from)
+    {:noreply, new_state}
+  end
+
   def terminate(_reason, state) do
     terminate_children(state)
     :ok
