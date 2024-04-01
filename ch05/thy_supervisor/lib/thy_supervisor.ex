@@ -44,7 +44,7 @@ defmodule ThySupervisor do
   def handle_call({:start_child, child_spec}, _from, state) do
     case start_child(child_spec) do
       {:ok, pid} ->
-        new_state = state |> HashDict.put(child_spec)
+        new_state = state |> HashDict.put(pid, child_spec)
         {:reply, {:ok, pid}, new_state}
       :error ->
         {:reply, {:error, "error starting child"}, state}
