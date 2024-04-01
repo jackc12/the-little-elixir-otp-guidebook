@@ -48,4 +48,15 @@ defmodule ThySupervisor do
         :error
       end
     end
+
+  defp start_children([child_spec|rest]) do
+    case start_child(child_spec) do
+      {:ok, pid} ->
+        [{pid, child_spec}|start_children(rest)]
+      :error ->
+        :error
+      end
+    end
+
+  defp start_children([]), do: []
 end
