@@ -3,7 +3,7 @@ defmodule Pooly.Server do
   import Supervisor.Spec
 
   defmodule State do
-    defstruct sup: nil, size: nil, mfa: nil
+    defstruct sup: nil, worker_sup: nil,  size: nil, workers: nil, mfa: nil, monitors: nil
   end
 
   #######
@@ -39,9 +39,9 @@ defmodule Pooly.Server do
     {:noreply, %{state | worker_sup: worker_sup, workers: workers}}
   end
 
-  @spec init([...]) :: {:ok, any()}
   def init([sup, pool_config]) when is_pid(sup) do
-    init(pool_config, %State{sup: sup})
+    monitors = :ets.new(:monitors, [:private])
+    init(pool_config, %State{sup: sup, monitors: monitors})
   end
 
   def init([{:mfa, mfa}|rest], state) do
@@ -57,7 +57,7 @@ defmodule Pooly.Server do
   end
 
   def init([], state) do
-    send(self, :start_worker_supervisor)
+    send(self(), :start_worker_supervisor)
     {:ok, state}
   end
 
