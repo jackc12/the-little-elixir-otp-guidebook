@@ -1,7 +1,7 @@
 defmodule Pooly do
   use Application
 
-  drf start(_type, _args) do
+  def start(_type, _args) do
     pool_config = [mfa: {SampleWorker, :start_link, []}, size: 5]
     start_pool(pool_config)
   end

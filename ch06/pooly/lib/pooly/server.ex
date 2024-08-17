@@ -23,7 +23,7 @@ defmodule Pooly.Server do
   end
 
   def status do
-    Genserver.call(__MODULE, :status)
+    Genserver.call(__MODULE__, :status)
   end
 
   #############
