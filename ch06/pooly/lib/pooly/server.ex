@@ -10,6 +10,10 @@ defmodule Pooly.Server do
   # API #
   #######
 
+  def checkin(worker_pid) do
+    GenServer.cast(__MODULE__, {:checkin, worker_pid})
+  end
+
   def checkout do
     GenServer.call(__MODULE__, :checkout)
   end
@@ -30,6 +34,17 @@ defmodule Pooly.Server do
         {:noreply, worker, %{state | workers: rest}}
       [] ->
         {:reply, :noproc, state}
+    end
+  end
+
+  def handle_cast({:checkin, worker}, %{workers: workers, monitors: monitors} = state) do
+    case :ets.lookup(monitors, worker) do
+      [{pid, ref}] ->
+        true = Process.demonitor(ref)
+        true = :ets.delete(monitors, pid)
+        {:noreply, %{state | workers: [pid|workers]}}
+      [] ->
+        {:noreply, state}
     end
   end
 
