@@ -1,20 +1,24 @@
 defmodule Pooly do
   use Application
 
-  # See http://elixir-lang.org/docs/stable/elixir/Application.html
-  # for more information on OTP Applications
-  def start(_type, _args) do
-    import Supervisor.Spec, warn: false
+  drf start(_type, _args) do
+    pool_config = [mfa: {SampleWorker, :start_link, []}, size: 5]
+    start_pool(pool_config)
+  end
 
-    # Define workers and child supervisors to be supervised
-    children = [
-      # Starts a worker by calling: Pooly.Worker.start_link(arg1, arg2, arg3)
-      # worker(Pooly.Worker, [arg1, arg2, arg3]),
-    ]
+  def start_pool(pool_config) do
+    Pooly.Supervisor.start_link(pool_config)
+  end
 
-    # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
-    # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: Pooly.Supervisor]
-    Supervisor.start_link(children, opts)
+  def checkout do
+    Pooly.Server.checkout
+  end
+
+  def checkin(worker_pid) do
+    Pooly.Server.checkin(worker_pid)
+  end
+
+  def status do
+    Pooly.Server.status
   end
 end
